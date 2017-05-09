@@ -65,20 +65,21 @@ public class Game {
      *        3 = bad guess.  Lost game.
      */
     public int playGame(char guess) {
-            boolean correctGuess = updateDisplayWord(guess);
-            if (correctGuess==false) { 
-                state++;
-                if (state==7) {
-                    // user has lost game
-                    return 3;
-                } else {
-                    return 2; // bad guess, continue
-                }
-            } else if ( displayWord.indexOf("_") >= 0) {
-               return 0; // continue game, with good guess
+        guess = Character.toLowerCase(guess);
+        boolean correctGuess = updateDisplayWord(guess);
+        if (correctGuess==false) { 
+            state++;
+            if (state==7) {
+                // user has lost game
+                return 3;
             } else {
-               return 1; // all characters has been guessed, user has won game.
+                return 2; // bad guess, continue
             }
+        } else if ( displayWord.indexOf("_") >= 0) {
+           return 0; // continue game, with good guess
+        } else {
+           return 1; // all characters has been guessed, user has won game.
+        }
     }
     /**
      * update display word to show any occurrences of guess

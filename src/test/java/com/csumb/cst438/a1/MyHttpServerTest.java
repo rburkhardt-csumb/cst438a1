@@ -69,5 +69,18 @@ public class MyHttpServerTest {
         fail("unexpected exception in testHandle "+e.getMessage());
     }
     }
+
+    /**
+     * Test of main method, of class MyHttpServer.
+     */
+    @Test
+    public void testMain ()
+    {
+        System.out.println("main");
+        String[] args = null;
+        MyHttpServer.main(args);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }
