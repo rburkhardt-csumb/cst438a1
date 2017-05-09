@@ -61,6 +61,7 @@ public class MyHttpServer {
                                             + "<input type=\"submit\" value=\"Submit\">" + "</form></body></html>";
                                 } else {
                                     // continue with current game
+                                    //System.out.println(uri);
                                     char ch = uri.charAt(uri.length()-1);  // letter that user has guessed
                                     int result = game.playGame(ch);
                                     switch(result) {
@@ -140,6 +141,11 @@ public class MyHttpServer {
                  private String generateCookie() {
                     return Long.toString(generator.nextLong());
                  }
+                 
+                private boolean goodInput()
+                {
+                    return true;
+                }
                  
         }  // end of static class MyHandler
         
