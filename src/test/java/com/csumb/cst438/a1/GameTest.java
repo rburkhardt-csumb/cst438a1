@@ -1,5 +1,6 @@
 package com.csumb.cst438.a1;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -106,6 +107,7 @@ public class GameTest {
     @org.junit.Test
     public void testPlayGame() {
         System.out.println("playGame");
+        String word = "";
         char guess = 'c';
         Game instance = new Game();
         int expResult = 0;
@@ -117,7 +119,7 @@ public class GameTest {
         assertEquals(2, result);
         result = instance.playGame('g');
         assertEquals(2, result);
-        result = instance.playGame('h');
+        result = instance.playGame('H');
         assertEquals(2,result);
         result = instance.playGame('j');
         assertEquals(2,result);
@@ -125,22 +127,36 @@ public class GameTest {
         assertEquals(3,result);
  
         instance.startNewGame();
-        result = instance.playGame('c');
-        assertEquals(0,result);
-        result = instance.playGame('o');
-        assertEquals(0,result);
-        result = instance.playGame('m');
-        assertEquals(0,result);
-        result = instance.playGame('p');
-        assertEquals(0,result);
-        result = instance.playGame('u');
-        assertEquals(0,result);
-        result = instance.playGame('t');
-        assertEquals(0,result);
-        result = instance.playGame('e');
-        assertEquals(0,result);
-        result = instance.playGame('r');
-        assertEquals(1,result);
+        word = instance.getWord();
+        System.out.println(word);
+        ArrayList<Character> wordChars = new ArrayList<>();
+        for ( int i = 0; i < word.length(); i++ )
+        {
+            char test = word.charAt(i);
+            if ( !wordChars.contains(test) )
+            {
+                wordChars.add(test);
+            }
+        }
+        System.out.println(wordChars);
+        for ( int i = 0; i < wordChars.size(); i++)
+        {
+            guess = wordChars.get(i);
+            if ( i == 3 )
+            {
+                guess = Character.toUpperCase(guess);
+            }
+            
+            result = instance.playGame( guess );
+            if ( i == wordChars.size()-1 )
+            {
+                assertEquals(1,result);
+            }
+            else
+            {
+                assertEquals(0,result);
+            }            
+        }
     }
     
 }

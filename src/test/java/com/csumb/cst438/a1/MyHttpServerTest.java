@@ -45,29 +45,31 @@ public class MyHttpServerTest {
      * Test of main method, of class MyHttpServer.
      */
     @Test
-    public void testHandle() {
-        String expectedBody = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head>" + 
-                "<body><h2>Hangman</h2><img src=\"h1.gif\"><h2 style=\"font-family:'Lucida Console', monospace\">" +
-                " _ _ _ _ _ _ _ _</h2><form action=\"/\" method=\"get\"> Guess a character <input type=\"text\" name=\"guess\"><br>" +
-                "<input type=\"submit\" value=\"Submit\"></form></body></html>";
+    public void testHandle ()
+    {
+        String expectedBody = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head>"
+                + "<body><h2>Hangman</h2><img src=\"h1.gif\"><h2 style=\"font-family:'Lucida Console', monospace\">"
+                + " _ _ _ _ _ _ _ _</h2><form action=\"/\" method=\"get\"> Guess a character <input type=\"text\" name=\"guess\"><br>"
+                + "<input type=\"submit\" value=\"Submit\"></form></body></html>";
 
-
-
-    Headers header = new Headers();
-    try {
-        TestHttpExchange t = new TestHttpExchange("/", header);
-        MyHttpServer.MyHandler handler = new MyHttpServer.MyHandler();
-        handler.handle(t);
-        // check response for cookie returned, response code=200, and expected response body 
-        Headers response = t.getResponseHeaders();
-        String cookie1 = response.getFirst("Set-cookie");
-        assertEquals("Bad content type", "text/html", response.getFirst("Content-type"));
-        assertNotNull("No cookie returned", cookie1);
-        assertEquals("Bad response code.",200, t.getResponseCode());
-        assertEquals("Bad response body.",expectedBody, t.getOstream().toString());
-    } catch (Exception e) {
-        fail("unexpected exception in testHandle "+e.getMessage());
-    }
+        Headers header = new Headers();
+        try
+        {
+            TestHttpExchange t = new TestHttpExchange("/", header);
+            MyHttpServer.MyHandler handler = new MyHttpServer.MyHandler();
+            handler.handle(t);
+            // check response for cookie returned, response code=200, and expected response body 
+            Headers response = t.getResponseHeaders();
+            String cookie1 = response.getFirst("Set-cookie");
+            assertEquals("Bad content type", "text/html", response.getFirst("Content-type"));
+            assertNotNull("No cookie returned", cookie1);
+            assertEquals("Bad response code.", 200, t.getResponseCode());
+            assertEquals("Bad response body.", expectedBody, t.getOstream().toString());
+        }
+        catch ( Exception e )
+        {
+            fail("unexpected exception in testHandle " + e.getMessage());
+        }
     }
 
     /**
