@@ -51,7 +51,7 @@ public class MyHttpServerTest
      */
     @Test
     public void testHandle ()
-    {
+    {        
         String expectedBody = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head><body><h2>Hangman</h2>"
                             + "<img src=\"h1.gif\">"
                             + "<h2 style=\"font-family:'Lucida Console', monospace\">_ _ _ _ _ _ _ _</h2>"
