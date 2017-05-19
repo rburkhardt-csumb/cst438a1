@@ -61,14 +61,15 @@ public class MyHttpServer
                 // get cookie value from http request
                 String requestCookie = t.getRequestHeaders().getFirst("Cookie");
                 System.out.println("Cookie=" + requestCookie);
+                System.out.println("Current Cookie=" + cookie);
                 // if there is no cookie, or it is "0" or differfent from the current value, then start a new game
-                if ( requestCookie == null || requestCookie.equals("0") || cookie.equals("0") || !requestCookie.equals(cookie) )
+                if ( requestCookie == null || requestCookie.equals("0") || !requestCookie.equals(cookie) || cookie.equals("0") )
                 {
                     game.startNewGame();
                     cookie = generateCookie();
                     response = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head><body><h2>Hangman</h2>"
                             + "<img src=\"" + "h" + game.getState() + ".gif" + "\">"
-                            + "<h2 style=\"font-family:'Lucida Console', monospace\"> " + game.getDisplayWord() + "</h2>"
+                            + "<h2 style=\"font-family:'Lucida Console', monospace\">" + game.getDisplayWord() + "</h2>"
                             + "<form action=\"/\" method=\"get\"> "
                             + "Guess a character <input type=\"text\" name=\"guess\"><br>"
                             + "<input type=\"submit\" value=\"Submit\">" + "</form></body></html>";
@@ -86,7 +87,7 @@ public class MyHttpServer
                             case 0: // good guess, continue game
                                 response = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head><body><h2>Hangman</h2>"
                                         + "<img src=\"" + "h" + game.getState() + ".gif" + "\">"
-                                        + "<h2 style=\"font-family:'Lucida Console', monospace\"> " + game.getDisplayWord() + "</h2>"
+                                        + "<h2 style=\"font-family:'Lucida Console', monospace\">" + game.getDisplayWord() + "</h2>"
                                         + "<form action=\"/\" method=\"get\"> "
                                         + "Guess a character <input type=\"text\" name=\"guess\"><br>"
                                         + "<input type=\"submit\" value=\"Submit\">" + "</form></body></html>";
@@ -101,7 +102,7 @@ public class MyHttpServer
                             case 2: // bad guess, continue game
                                 response = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head><body><h2>Hangman</h2>"
                                         + "<img src=\"" + "h" + game.getState() + ".gif" + "\">"
-                                        + "<h2 style=\"font-family:'Lucida Console', monospace\"> " + game.getDisplayWord() + "</h2>"
+                                        + "<h2 style=\"font-family:'Lucida Console', monospace\">" + game.getDisplayWord() + "</h2>"
                                         + "<form action=\"/\" method=\"get\"> "
                                         + "Guess a character <input type=\"text\" name=\"guess\"><br>"
                                         + "<input type=\"submit\" value=\"Submit\">" + "</form></body></html>";
@@ -118,8 +119,8 @@ public class MyHttpServer
                     {
                         response = "<!DOCTYPE html><html><head><title>MyHttpServer</title></head><body><h2>Hangman</h2>"
                                 + "<img src=\"" + "h" + game.getState() + ".gif" + "\">"
-                                + "<h2 style=\"font-family:'Lucida Console', monospace\"> " + game.getDisplayWord() + "</h2>"
-                                + "<h2 style=\"font-family:'Lucida Console', monospace; color:red;\">Invalid input try again!/h2>"
+                                + "<h2 style=\"font-family:'Lucida Console', monospace\">" + game.getDisplayWord() + "</h2>"
+                                + "<h2 style=\"font-family:'Lucida Console', monospace; color:red;\">Invalid input try again!</h2>"
                                 + "<form action=\"/\" method=\"get\"> "
                                 + "Guess a character <input type=\"text\" name=\"guess\"><br>"
                                 + "<input type=\"submit\" value=\"Submit\">" + "</form></body></html>";
