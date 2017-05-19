@@ -79,8 +79,11 @@ public class MyHttpServerTest
             fail("unexpected exception in testHandle " + e.getMessage());
         }
         
-        //System.out.println("I got here");
-
+        // The following loop tests for correct response from the MyHttpServer
+        // when invalid inputs are submited, characters that are not alphabetic.
+        // This test works only when Game.startNewGame sets the variable word to
+        // computer, if it is set to random the test will fail do to a random
+        // word being set to the variable word.
         String testString = " 1#";
         String testUri = "";
         int state = 1;
@@ -94,7 +97,6 @@ public class MyHttpServerTest
                     + "<form action=\"/\" method=\"get\"> Guess a character <input type=\"text\" name=\"guess\">"
                     + "<br><input type=\"submit\" value=\"Submit\"></form></body></html>";
             
-            //System.out.println("test char is \"" + testChar + "\"");
             try
             {
                 if ( testChar == ' ' )
@@ -116,10 +118,38 @@ public class MyHttpServerTest
             {
                 fail("unexpected exception in testHandle " + e.getMessage());
             }
-//            if ( Character.isAlphabetic(testChar) )
-//            {
-//                state++;
-//            }
+        }
+        
+        // The following tests for the request to download h1.gif
+        try
+        {
+            header = new Headers();
+            TestHttpExchange t = new TestHttpExchange("/h1.gif", header);
+            handler.handle(t);
+            Headers response = t.getResponseHeaders();
+            assertEquals("Bad content type", "image/gif", response.getFirst("Content-type"));
+            assertEquals("Bad response code.", 200 , t.getResponseCode());
+            assertEquals("Bad response length", "8581", response.getFirst("Content-length"));
+        }
+        catch ( Exception e )
+        {
+            fail("unexpected exception in testHandle " + e.getMessage());
+        }
+        
+        // The following tests for the request to download a image that does not
+        // exist, h9.gif
+        try
+        {
+            header = new Headers();
+            TestHttpExchange t = new TestHttpExchange("/h9.gif", header);
+            handler.handle(t);
+            Headers response = t.getResponseHeaders();
+            // checks if the response from t is empty or populated
+            assertEquals(true, response.isEmpty());
+        }
+        catch ( Exception e )
+        {
+            fail("unexpected exception in testHandle " + e.getMessage());
         }
 
     }
